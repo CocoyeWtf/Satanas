@@ -55,6 +55,7 @@ class OptimizationService:
         
         data['names'] = [base.nom] + [p.nom for p in pdvs] # Pour l'affichage/retour
         data['ids'] = [str(base.id)] + [str(p.id) for p in pdvs] # IDs réels
+        data['locations'] = locations # Stockage des coords pour le retour API
         
         return data
 
@@ -79,11 +80,13 @@ class OptimizationService:
                 node_index = manager.IndexToNode(index)
                 
                 step_type = "DEPOT" if node_index == 0 else "DELIVERY"
+                loc = data['locations'][node_index]
                 
                 route["steps"].append({
                     "stop_type": step_type,
                     "name": data['names'][node_index],
-                    "id": data['ids'][node_index]
+                    "id": data['ids'][node_index],
+                    "location": {"lat": loc[0], "lon": loc[1]}
                 })
 
                 previous_index = index
@@ -92,10 +95,12 @@ class OptimizationService:
             
             # Retour dépôt
             node_index = manager.IndexToNode(index)
+            loc = data['locations'][node_index]
             route["steps"].append({
                 "stop_type": "DEPOT",
                 "name": data['names'][node_index],
-                "id": data['ids'][node_index]
+                "id": data['ids'][node_index],
+                "location": {"lat": loc[0], "lon": loc[1]}
             })
             
             route["distance_meters"] = route_distance

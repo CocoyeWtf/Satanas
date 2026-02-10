@@ -1,41 +1,44 @@
-import axios from 'axios';
+import axios from "axios";
 
-// 1. Configuration Axios
-export const api = axios.create({
-    baseURL: 'http://localhost:8000/api/v1',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-});
-
-// 2. Interfaces TypeScript (Corregido)
-export interface Step {
-    stop_type: 'DEPOT' | 'DELIVERY';
-    name: string;
-    id: string;
-}
-
+// --- INTERFACES ---
 export interface Route {
     vehicle_id: number;
-    steps: Step[];
-    distance_meters: number;
+    steps: string[];
+    distance: number;
 }
 
 export interface OptimizationResult {
-    status: string;
-    total_distance_meters: number;
+    total_distance: number;
     routes: Route[];
 }
 
-// 3. Fonctions API
+// --- CONFIGURATION API ---
+const api = axios.create({
+    baseURL: "http://localhost:8000/api/v1",
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+
 export const runOptimization = async (): Promise<OptimizationResult> => {
-    const today = new Date().toISOString().split('T')[0];
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        console.log(`[API] Envoi de la demande pour : ${today}`);
 
-    // Appel POST vers /optimize
-    const { data } = await api.post<OptimizationResult>('/optimize', {
-        date_tournee: today,
-        vehicle_ids: [] // IDs vides = Tous les véhicules
-    });
+        // CORRECTION : Le backend exige "date_tournee"
+        const response = await api.post("/optimize", {
+            date_tournee: today
+        });
 
-    return data;
+        console.log("[API] Succès !", response.data);
+        return response.data;
+
+    } catch (error: any) {
+        console.error("[API] Erreur :", error);
+        // On garde l'alerte au cas où, mais ça devrait passer crème !
+        if (axios.isAxiosError(error) && error.response) {
+            alert(`Erreur Backend (${error.response.status}): \n` + JSON.stringify(error.response.data, null, 2));
+        }
+        throw error;
+    }
 };

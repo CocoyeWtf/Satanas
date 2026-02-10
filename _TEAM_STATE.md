@@ -1,6 +1,6 @@
 # ÉTAT MAJOR - PROJET SATANAS
 **Dernière mise à jour :** 10/02/2026
-**Phase Actuelle :** 3. API & Service Layer
+**Phase Actuelle :** 4. Frontend Application
 **Mode Opératoire :** Protocol "Sovereign Pipeline" (Spec -> Test -> Code -> Audit)
 
 ## 1. VISION ARCHITECTE (ARCH)
@@ -16,13 +16,12 @@
 - [x] Création des Modèles de Données (SQLAlchemy).
 - [x] Tests Unitaires des Modèles.
 - [x] Core Optimization Engine (POC).
+- [x] API & Service Layer (FastAPI).
 
 ## 3. POINTS DE VIGILANCE (QA)
-- **Attention :** L'API doit gérer les erreurs proprement (ex: si aucun véhicule n'est dispo).
-- **Attention :** Le calcul des distances doit gérer la courbure terrestre (Haversine) car nous utilisons des Lat/Lon.
-- **Attention :** Les contraintes horaires (Time Windows) sont critiques. Le modèle de données doit gérer le format HH:MM avec précision.
-- **Attention :** La distinction "Terme Fixe" unique vs multiple dans les contrats transporteurs doit être gérée dès le modèle de données.
-- **Sécurité :** Pas de données sensibles en dur dans le code.
+- **Attention :** Le Frontend doit gérer les chargements longs (Optimisation > 5s).
+- **Attention :** L'interface doit être "Premium" (Dark Mode, Glassmorphism).
+- **Sécurité :** CORS configuré (Dev: *).
 
 ## 4. DIRECTIVES PERMANENTES
 - Pas de code sans Spec Markdown préalable.

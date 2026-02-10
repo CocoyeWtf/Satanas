@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { Truck, Map, Settings, Play, AlertCircle, Loader2 } from 'lucide-react';
-
-// Import nommé explicite depuis le fichier API
 import { runOptimization, type OptimizationResult } from './lib/api';
+import RouteMap from './components/RouteMap';
 
 function App() {
   // Gestion d'état
@@ -44,7 +43,7 @@ function App() {
       </nav>
 
       {/* Main Container */}
-      <main className="flex-1 w-full max-w-5xl mx-auto p-6 space-y-8">
+      <main className="flex-1 w-full max-w-6xl mx-auto p-6 space-y-8">
 
         {/* Hero Card */}
         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 shadow-xl relative overflow-hidden">
@@ -91,9 +90,11 @@ function App() {
           </div>
         )}
 
-        {/* Results List */}
+        {/* Results Area */}
         {result && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+
+            {/* KPI Header */}
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-emerald-400" />
@@ -104,7 +105,13 @@ function App() {
               </div>
             </div>
 
-            <div className="grid gap-4">
+            {/* MAP COMPONENT */}
+            <div className="rounded-xl overflow-hidden border border-slate-800">
+              <RouteMap routes={result.routes} />
+            </div>
+
+            {/* Routes List Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {result.routes.map((route, idx) => (
                 <div
                   key={idx}
