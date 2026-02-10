@@ -1,6 +1,6 @@
 # ÉTAT MAJOR - PROJET SATANAS
 **Dernière mise à jour :** 10/02/2026
-**Phase Actuelle :** 2. Core Optimization Engine (POC)
+**Phase Actuelle :** 3. API & Service Layer
 **Mode Opératoire :** Protocol "Sovereign Pipeline" (Spec -> Test -> Code -> Audit)
 
 ## 1. VISION ARCHITECTE (ARCH)
@@ -15,9 +15,10 @@
 - [x] Environnement virtuel (venv) & Requirements installés.
 - [x] Création des Modèles de Données (SQLAlchemy).
 - [x] Tests Unitaires des Modèles.
-- [x] API CRUD de base (Database Layer Ready).
+- [x] Core Optimization Engine (POC).
 
 ## 3. POINTS DE VIGILANCE (QA)
+- **Attention :** L'API doit gérer les erreurs proprement (ex: si aucun véhicule n'est dispo).
 - **Attention :** Le calcul des distances doit gérer la courbure terrestre (Haversine) car nous utilisons des Lat/Lon.
 - **Attention :** Les contraintes horaires (Time Windows) sont critiques. Le modèle de données doit gérer le format HH:MM avec précision.
 - **Attention :** La distinction "Terme Fixe" unique vs multiple dans les contrats transporteurs doit être gérée dès le modèle de données.
