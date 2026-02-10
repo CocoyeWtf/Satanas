@@ -5,21 +5,20 @@ __pycache__/
 venv/
 .env
 
-# Node
-node_modules/
-dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Data & Logs
+*.log
+*.sqlite
+data/*.xlsx
+data/*.csv
+!data/.keep
 
-# Postgres
-*.sql.gz
-*.backup
-
-# OS
+# IDE & OS
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
 
-# IDE
-.vscode/
-.idea/
+# Frontend
+node_modules/
+dist/
+.output/
