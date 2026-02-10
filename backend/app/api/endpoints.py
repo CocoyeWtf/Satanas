@@ -7,6 +7,7 @@ from backend.app.core.database import SessionLocal
 from backend.app.models.tms import PointDeVente, Transporteur, VehiculeType
 from backend.app.schemas.tms import PDVResponse, OptimizationRequest, VolumeImportResult
 from backend.app.services.ingest import process_excel_volumes
+from backend.app.services.optimization import OptimizationService
 
 router = APIRouter()
 
@@ -41,6 +42,17 @@ async def ingest_volumes(file: UploadFile = File(...), db: Session = Depends(get
     return result
 
 @router.post("/optimize")
-def run_optimization(request: OptimizationRequest):
-    """Placeholder pour le lancement du Solver"""
-    return {"status": "STARTED", "message": "Optimisation en cours (Simulé)", "params": request}
+def run_optimization(request: OptimizationRequest, db: Session = Depends(get_db)):
+    """Lance le moteur d'optimisation via le Service"""
+    service = OptimizationService()
+    
+    # Nombre de véhicules (Default 5 si non spécifié)
+    v_count = 5
+    if request.vehicle_ids:
+        v_count = len(request.vehicle_ids)
+        
+    try:
+        result = service.solve_tour(db, vehicules_count=v_count)
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
