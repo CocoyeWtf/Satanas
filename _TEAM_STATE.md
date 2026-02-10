@@ -1,6 +1,6 @@
 # ÉTAT MAJOR - PROJET SATANAS
 **Dernière mise à jour :** 10/02/2026
-**Phase Actuelle :** 1. Fondations & Data Modeling
+**Phase Actuelle :** 2. Core Optimization Engine (POC)
 **Mode Opératoire :** Protocol "Sovereign Pipeline" (Spec -> Test -> Code -> Audit)
 
 ## 1. VISION ARCHITECTE (ARCH)
@@ -13,11 +13,12 @@
 - [x] Initialisation Git & Repo.
 - [x] Structure des dossiers créée.
 - [x] Environnement virtuel (venv) & Requirements installés.
-- [ ] Création des Modèles de Données (SQLAlchemy).
-- [ ] Tests Unitaires des Modèles.
-- [ ] API CRUD de base.
+- [x] Création des Modèles de Données (SQLAlchemy).
+- [x] Tests Unitaires des Modèles.
+- [x] API CRUD de base (Database Layer Ready).
 
 ## 3. POINTS DE VIGILANCE (QA)
+- **Attention :** Le calcul des distances doit gérer la courbure terrestre (Haversine) car nous utilisons des Lat/Lon.
 - **Attention :** Les contraintes horaires (Time Windows) sont critiques. Le modèle de données doit gérer le format HH:MM avec précision.
 - **Attention :** La distinction "Terme Fixe" unique vs multiple dans les contrats transporteurs doit être gérée dès le modèle de données.
 - **Sécurité :** Pas de données sensibles en dur dans le code.
